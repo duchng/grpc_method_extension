@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package api.garden_service.v1;
+
+import "api/v1/method_options.proto";
+
+option go_package = "grpc_method_extension/gen/api/garden-service/v1;gardenservicev1";
+
+message GetFlowersRequest {
+}
+
+message GetFlowersResponse {
+  repeated Flower flowers = 1;
+}
+
+message GetMushroomsRequest {
+}
+
+message GetMushroomsResponse {
+  repeated Mushroom mushrooms = 1;
+}
+
+message Flower {
+  string name = 1;
+  string color = 2;
+}
+
+message Mushroom {
+  string name = 1;
+  int64 size = 2;
+}
+
+service GardenService {
+  rpc GetFlowers(GetFlowersRequest) returns (GetFlowersResponse){
+    option (api.v1.minimum_tier) = 0;
+  };
+  rpc GetMushrooms(GetMushroomsRequest) returns (GetMushroomsResponse){
+    option (api.v1.minimum_tier) = 2;
+  };
+}
